@@ -7,7 +7,7 @@ function QuestionsList() {
 	return (
 		<>
 			{questions.map((question, key) => {
-				return <Question key={key} question={question} />;
+				return <Question key={key} rownum={key + 1} question={question} />;
 			})}
 		</>
 	);

@@ -4,7 +4,7 @@ import QuestionsList from "./QuestionsList";
 import EditQuestion from "./EditQuestion";
 import EditSurvey from "./EditSurvey";
 import AddQuestion from "./AddQuestion";
-import { insertSurveysAsync } from "../../slices/surveysSlice";
+import { insertSurveysAsync } from "../../slices/surveySlice";
 
 function SurveyEditor() {
 	const dispatch = useDispatch();
@@ -17,6 +17,7 @@ function SurveyEditor() {
 	function handleSurveySave() {
 		dispatch(insertSurveysAsync(survey));
 	}
+	function handleSurveyUpdate() {}
 
 	return (
 		<div className="editor-wrapper">
@@ -51,8 +52,15 @@ function SurveyEditor() {
 					{activeMenu == "add-question" ? <AddQuestion /> : ""}
 					{activeMenu == "edit-question" ? <EditQuestion /> : ""}
 					{activeMenu == "edit-survey" ? <EditSurvey /> : ""}
-					<button onClick={handleSurveySave} className="edit">
-						SAVE
+					{!survey.survey_id ? (
+						<button onClick={handleSurveySave} className="editor-btns save">
+							SAVE
+						</button>
+					) : (
+						""
+					)}
+					<button onClick={handleSurveySave} className="editor-btns edit">
+						Update
 					</button>
 				</div>
 			</div>

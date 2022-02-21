@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { client } from "../../src//client";
 
 const defaultState = {
 	currentQuestion: {},
@@ -14,6 +13,35 @@ const defaultState = {
 		// },
 	],
 };
+export const insertSurveysAsync = createAsyncThunk(
+	"surveys/insertSurveysAsync",
+	async (payload) => {
+		const response = await fetch("http://localhost:1337/survey", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ payload }),
+		});
+		if (response.ok) {
+			const id = await response.json();
+			return id;
+		}
+	}
+);
+
+export const getSurveyAsync = createAsyncThunk(
+	"surveys/getSurveyAsync",
+	async (payload) => {
+		const response = await fetch("http://localhost:1337/selectSurvey", {
+			body: JSON.stringify({ payload }),
+		});
+		if (response.ok) {
+			const { surveys } = await response.json();
+			return { surveys };
+		}
+	}
+);
 
 export const surveySlice = createSlice({
 	name: "surveyItem",
@@ -28,7 +56,11 @@ export const surveySlice = createSlice({
 			return { ...state, ...action.payload };
 		},
 		setCurrentQuestion: (state, action) => {
-			state.currentQuestion = action.payload;
+			const [currentQuestion] = state.questions.filter(
+				(question) => question.id == action.payload
+			);
+			console.log(currentQuestion, action.payload);
+			state.currentQuestion = currentQuestion;
 		},
 		updateQuestion: (state, { payload }) => {
 			const questions = state.questions.map((question) => {
@@ -57,6 +89,16 @@ export const surveySlice = createSlice({
 				...state,
 				...{ currentQuestion: {}, questions: questions },
 			};
+		},
+	},
+	extraReducers: {
+		[getSurveyAsync.fulfilled]: (state, action) => {
+			// return action.payload;
+			console.log(action.payload);
+		},
+		[insertSurveysAsync.fulfilled]: (state, action) => {
+			// state.questions = action.payload.questions;
+			return { ...state, ...action.payload };
 		},
 	},
 });

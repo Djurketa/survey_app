@@ -198,6 +198,12 @@ butston {
 	line-height: 30px;
 	padding: 0px 15px;
 	cursor: pointer;
+	min-width: 100px;
+}
+.save {
+	border: none;
+	background-color: #1583e9;
+	color: white;
 }
 .editor-btns.edit {
 	background-color: rgb(202, 74, 74);
@@ -205,8 +211,8 @@ butston {
 	display: block;
 	border: none;
 }
-.editor-btns:not(.active-menu-btn, .edit):hover {
-	background-color: whitesmoke;
+.editor-btns:not(.active-menu-btn):hover {
+	box-shadow: 0 0 3px 0px rgb(151, 151, 151);
 }
 .form-group {
 	display: flex;

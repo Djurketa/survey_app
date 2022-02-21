@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import QuestionBtns from "./QuestionBtns";
-function Question({ question }) {
+function Question({ question, rownum }) {
 	const currentQuestion = useSelector((state) => state.survey.currentQuestion);
 
-	function renderQuestion(question) {
+	function renderQuestion(question, rownum) {
+		console.log(rownum);
 		switch (question.type) {
 			case "multiple-choice":
 				return (
@@ -13,7 +14,7 @@ function Question({ question }) {
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
 						<h3>
-							{question.id}. {question.title}
+							{rownum}. {question.title}
 						</h3>
 						{question.options.map((option, key) => {
 							return (
@@ -40,7 +41,7 @@ function Question({ question }) {
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
 						<h3>
-							{question.id}. {question.title}
+							{rownum}. {question.title}
 						</h3>
 						{question.options.map((option, key) => {
 							return (
@@ -65,7 +66,7 @@ function Question({ question }) {
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
 						<h3>
-							{question.id}. {question.title}
+							{rownum}. {question.title}
 						</h3>
 						<textarea
 							id={question.id}
@@ -83,7 +84,7 @@ function Question({ question }) {
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
 						<h3>
-							{question.id}. {question.title}
+							{rownum}. {question.title}
 						</h3>
 						<input
 							type="text"
@@ -96,7 +97,7 @@ function Question({ question }) {
 				break;
 		}
 	}
-	return <>{renderQuestion(question)}</>;
+	return <>{renderQuestion(question, rownum)}</>;
 }
 
 export default Question;
