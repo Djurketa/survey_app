@@ -10,8 +10,13 @@ import {
 } from "./components/app";
 import "./App.css";
 import SurveyEditor from "./components/user/SurveyEditor";
+import Login from "./components/user/Login";
+import { useSessionStorage } from "./app/localStorage";
 
 function App() {
+	// const [session, setSession] = useSessionStorage(
+	// 	sessionStorage.getItem("session")
+	// );
 	return (
 		<div className="app">
 			<div className="navbar">
@@ -44,6 +49,7 @@ function App() {
 								exact
 								path="/createsurvey"
 								element={<SurveyEditor />}></Route>
+							<Route exact path="/login" element={<Login />}></Route>
 						</Routes>
 					</div>
 				</div>

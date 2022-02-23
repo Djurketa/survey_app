@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSurveysAsync } from "../../slices/surveysSlice";
-
 function Surveys({ simplified }) {
 	const dispatch = useDispatch();
 	const limit = simplified ? 10 : 100;

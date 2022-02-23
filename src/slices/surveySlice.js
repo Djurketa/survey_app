@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const defaultState = {
 	currentQuestion: {},
+	user_id: 0,
 	title: "Survey Title",
 	description: "Survey description",
 	questions: [
@@ -13,6 +14,22 @@ const defaultState = {
 		// },
 	],
 };
+export const LoginSurveysAsync = createAsyncThunk(
+	"surveys/LoginSurveysAsync",
+	async (payload) => {
+		const response = await fetch("http://localhost:1337/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ payload }),
+		});
+		if (response.ok) {
+			const responce = await response.json();
+			return responce;
+		}
+	}
+);
 export const insertSurveysAsync = createAsyncThunk(
 	"surveys/insertSurveysAsync",
 	async (payload) => {
@@ -20,6 +37,7 @@ export const insertSurveysAsync = createAsyncThunk(
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"x-access-token": sessionStorage.getItem("token"),
 			},
 			body: JSON.stringify({ payload }),
 		});
@@ -92,6 +110,9 @@ export const surveySlice = createSlice({
 		},
 	},
 	extraReducers: {
+		[LoginSurveysAsync.fulfilled]: (state, action) => {
+			sessionStorage.setItem("state", action.payload);
+		},
 		[getSurveyAsync.fulfilled]: (state, action) => {
 			// return action.payload;
 			console.log(action.payload);

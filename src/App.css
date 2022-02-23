@@ -45,8 +45,17 @@ h6 {
 .logo-container {
 	width: 200px;
 	display: flex;
-	position: absolute;
+	justify-content: center;
 }
+.logo-login-wrapper {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.logo-login-wrapper div {
+	margin: 0 auto;
+}
+
 .logo-img {
 	height: 40px;
 }
@@ -269,4 +278,11 @@ butston {
 }
 .df {
 	display: flex;
+}
+.login-wrapper {
+	width: 400px;
+	margin: 60px auto;
+	border: 1px solid lightgray;
+	padding: 100px 40px;
+	border-radius: 5px;
 }
