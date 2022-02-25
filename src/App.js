@@ -11,12 +11,15 @@ import {
 import "./App.css";
 import SurveyEditor from "./components/user/SurveyEditor";
 import Login from "./components/user/Login";
-import { useSessionStorage } from "./app/localStorage";
+import { useDispatch } from "react-redux";
+import { setSession } from "./slices/surveySlice";
+import UserSurveys from "./components/user/UserSurveys";
 
 function App() {
-	// const [session, setSession] = useSessionStorage(
-	// 	sessionStorage.getItem("session")
-	// );
+	const dispatch = useDispatch();
+
+	dispatch(setSession(JSON.parse(sessionStorage.getItem("session"))));
+
 	return (
 		<div className="app">
 			<div className="navbar">
@@ -40,11 +43,7 @@ function App() {
 								exact
 								path="/question/:id"
 								element={<Questionnaire />}></Route>
-							{/* <Route
-								exact
-								path="/createsurvey"
-								 element={<CreateSurvey />}
-							></Route> */}
+							<Route exact path="/mysurveys" element={<UserSurveys />}></Route>
 							<Route
 								exact
 								path="/createsurvey"

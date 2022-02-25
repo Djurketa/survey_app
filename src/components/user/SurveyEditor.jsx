@@ -17,7 +17,6 @@ function SurveyEditor() {
 	function handleSurveySave() {
 		dispatch(insertSurveysAsync(survey));
 	}
-	function handleSurveyUpdate() {}
 
 	return (
 		<div className="editor-wrapper">

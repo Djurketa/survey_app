@@ -6,31 +6,27 @@ import { LoginSurveysAsync } from "../../slices/surveySlice";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import { useState } from "react";
-import { useEffect } from "react";
-import { useSessionStorage } from "../../app/useSessionStorage";
+
 function Login() {
-	const user_id = useSelector((state) => state.survey.user_id);
+	const session = useSelector((state) => state.survey.session);
+
 	const [username, setUsername] = useState();
+	const [password, setPassword] = useState();
 	const dispatch = useDispatch();
-	const [token, setToken] = useState(sessionStorage.getItem("token"));
-	useEffect(() => {
-		setToken(token);
-	}, []);
+
 	function handleLoginClick(e) {
-		dispatch(LoginSurveysAsync({ username: "Jovan", password: "123" }));
+		dispatch(LoginSurveysAsync({ username: username, password: password }));
 	}
 
 	return (
 		<div className="login-wrapper">
-			{token}
-			{token ? <Navigate to="/createsurvey" /> : ""}
+			{session.user_id ? <Navigate to="/createsurvey" /> : ""}
 
 			<div className="logo-login-wrapper">
 				<div className="logo-container">
 					<img className="logo-img" src={icon} />
 
 					<Link className="logo" to="home">
-						{" "}
 						SurveyApp{" "}
 					</Link>
 				</div>
@@ -38,9 +34,19 @@ function Login() {
 			</div>
 			<div className="form-group ">
 				<label htmlFor="username">Username</label>
-				<input type="text" />
+				<input
+					onChange={(e) => {
+						setUsername(e.target.value);
+					}}
+					type="text"
+				/>
 				<label htmlFor="password">Password</label>
-				<input type="password" />
+				<input
+					onChange={(e) => {
+						setPassword(e.target.value);
+					}}
+					type="password"
+				/>
 				<button onClick={handleLoginClick} className="editor-btns save">
 					Login
 				</button>

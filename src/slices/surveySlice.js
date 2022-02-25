@@ -2,17 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const defaultState = {
 	currentQuestion: {},
-	user_id: 0,
 	title: "Survey Title",
 	description: "Survey description",
-	questions: [
-		// {
-		//     id:'',
-		//     type:'',
-		//     title:'',
-		//     options:[{id:132,ans:'Sdssjkd'},{id:12,ans:'Sdssjssskd'}]
-		// },
-	],
+	questions: [],
 };
 export const LoginSurveysAsync = createAsyncThunk(
 	"surveys/LoginSurveysAsync",
@@ -51,12 +43,12 @@ export const insertSurveysAsync = createAsyncThunk(
 export const getSurveyAsync = createAsyncThunk(
 	"surveys/getSurveyAsync",
 	async (payload) => {
-		const response = await fetch("http://localhost:1337/selectSurvey", {
-			body: JSON.stringify({ payload }),
-		});
+		const response = await fetch(
+			"http://localhost:1337/selectSurvey?id=" + payload
+		);
 		if (response.ok) {
-			const { surveys } = await response.json();
-			return { surveys };
+			const survey = await response.json();
+			return survey;
 		}
 	}
 );
@@ -66,6 +58,11 @@ export const surveySlice = createSlice({
 	// initialState: [],
 	initialState: defaultState,
 	reducers: {
+		setSession: (state, action) => {
+			sessionStorage.setItem("session", JSON.stringify(action.payload));
+			const session = action.payload || false;
+			state.session = session || "";
+		},
 		addQuestion: (state, action) => {
 			state.currentQuestion = action.payload;
 			state.questions.push(action.payload);
@@ -111,11 +108,14 @@ export const surveySlice = createSlice({
 	},
 	extraReducers: {
 		[LoginSurveysAsync.fulfilled]: (state, action) => {
-			sessionStorage.setItem("state", action.payload);
+			sessionStorage.setItem("session", JSON.stringify(action.payload));
+			console.log(action.payload);
+			state.session = action.payload;
 		},
 		[getSurveyAsync.fulfilled]: (state, action) => {
 			// return action.payload;
 			console.log(action.payload);
+			return { ...state, ...action.payload };
 		},
 		[insertSurveysAsync.fulfilled]: (state, action) => {
 			// state.questions = action.payload.questions;
@@ -125,6 +125,7 @@ export const surveySlice = createSlice({
 });
 
 export const {
+	setSession,
 	addItem,
 	addQuestion,
 	editSurvey,
