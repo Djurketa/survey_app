@@ -8,11 +8,6 @@ function QuestionBtns({ question_id }) {
 	const dispatch = useDispatch();
 
 	function handleEditClick(e) {
-		//finds question from state by id
-		// const [question] = survey.questions.filter(
-		// 	(question) => question.id == question_id
-		// );
-		// set current question with clicked question
 		dispatch(setCurrentQuestion(question_id));
 	}
 

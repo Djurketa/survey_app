@@ -6,6 +6,7 @@ import { LoginSurveysAsync } from "../../slices/surveySlice";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import { useState } from "react";
+import Zoka from "./Zoka";
 
 function Login() {
 	const session = useSelector((state) => state.survey.session);
@@ -20,6 +21,7 @@ function Login() {
 
 	return (
 		<div className="login-wrapper">
+			<Zoka data={"id neceg"} />
 			{session.user_id ? <Navigate to="/createsurvey" /> : ""}
 
 			<div className="logo-login-wrapper">

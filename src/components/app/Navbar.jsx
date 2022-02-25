@@ -13,45 +13,49 @@ function Navbar() {
 	}
 	return (
 		<div className="nav-container">
-			<div className="logo-container">
+			<div className="nav-left">
 				<img className="logo-img" src={icon} />
 
 				<Link className="logo" to="">
 					SurveyApp{" "}
 				</Link>
 			</div>
-			<ul className="menu" theme="dark">
-				<li>
-					<NavLink to="/"> Home </NavLink>
-				</li>
-				<li>
-					<NavLink to="/surveys"> Surveys</NavLink>
-				</li>
-				<li>
-					<NavLink to="/questions"> Questionnaires</NavLink>
-				</li>
-				{!session.user_id ? (
-					<>
-						<li>
-							<NavLink to="/login"> Login / Register</NavLink>
-						</li>
-					</>
-				) : (
-					<>
+			<div className="nav-middle">
+				<ul className="menu" theme="dark">
+					<li>
+						<NavLink to="/"> Home </NavLink>
+					</li>
+					<li>
+						<NavLink to="/surveys"> Surveys</NavLink>
+					</li>
+					<li>
+						<NavLink to="/questions"> Questionnaires</NavLink>
+					</li>
+					{session.user_id && (
 						<li>
 							<NavLink to="/createsurvey"> Create survey</NavLink>
 						</li>
+					)}
+					{session.user_id && (
 						<li>
 							<NavLink to="/mysurveys"> My surveys</NavLink>
 						</li>
-						<li>
-							<NavLink onClick={handleLogoutClick} to="/logout">
-								Logout
-							</NavLink>
-						</li>
-					</>
+					)}
+				</ul>
+			</div>
+			<div className="nav-rigth">
+				{!session.user_id && (
+					<NavLink className="nav-btn" to="/login">
+						Login
+					</NavLink>
 				)}
-			</ul>
+
+				{session.user_id && (
+					<button className="nav-btn" onClick={handleLogoutClick} to="/logout">
+						Logout
+					</button>
+				)}
+			</div>
 		</div>
 	);
 }
