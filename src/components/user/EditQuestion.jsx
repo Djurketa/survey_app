@@ -75,6 +75,7 @@ function EditQuestion() {
 							{currentQuestion.id}. Question title
 						</label>
 						<input
+							onClick={(e) => e.target.select()}
 							onChange={handleQuestionTitleChange}
 							type="text"
 							id={currentQuestion.id}
@@ -89,12 +90,12 @@ function EditQuestion() {
 							<div className="df">
 								<button
 									onClick={handleRemoveOption}
-									className="editor-btns edit">
+									className="btn btn-sm btn-danger">
 									-
 								</button>
 								<button
 									onClick={handleAddRemoveOprion}
-									className="editor-btns edit">
+									className="btn btn-sm btn-danger">
 									+
 								</button>
 							</div>
@@ -102,7 +103,7 @@ function EditQuestion() {
 								return (
 									<input
 										key={key}
-										// data="option"
+										onClick={(e) => e.target.select()}
 										onChange={handleQuestionAnsChange}
 										type="text"
 										id={option.id}

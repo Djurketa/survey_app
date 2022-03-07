@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import Question from "./Question";
 
 function QuestionsList() {
-	const questions = useSelector((state) => state.survey.questions);
+	const survey = useSelector((state) => state.survey);
+	const questions = survey.questions;
 	return (
 		<>
+			<h1 className="survey-title">{survey.title}</h1>
+			<p className="survey-description">{survey.description}</p>
 			{questions.map((question, key) => {
 				return <Question key={key} rownum={key + 1} question={question} />;
 			})}

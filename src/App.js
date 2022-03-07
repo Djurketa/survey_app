@@ -1,24 +1,19 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import {
-	Navbar,
-	Homepage,
-	Surveys,
-	Survey,
-	Questionnaire,
-	Questionnaires,
-} from "./components/app";
+import { Navbar, Homepage, Surveys, Survey } from "./components/app";
 import "./App.css";
 import SurveyEditor from "./components/user/SurveyEditor";
 import Login from "./components/user/Login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSession } from "./slices/surveySlice";
 import UserSurveys from "./components/user/UserSurveys";
-
+import SurveyFill from "./components/user/SurveyFill";
 function App() {
 	const dispatch = useDispatch();
 
 	dispatch(setSession(JSON.parse(sessionStorage.getItem("session"))));
+	// const session = useSelector((state) => state.survey.session);
+	// console.log("APP", session);
 
 	return (
 		<div className="app">
@@ -34,16 +29,14 @@ function App() {
 								exact
 								path="/surveys"
 								element={<Surveys simplified={false} />}></Route>
+
 							<Route
 								exact
-								path="/questions"
-								element={<Questionnaires />}></Route>
-							<Route exact path="/survey/:id" element={<Survey />}></Route>
-							<Route
-								exact
-								path="/question/:id"
-								element={<Questionnaire />}></Route>
+								path="/survey/:survey_id"
+								element={<SurveyFill />}></Route>
+
 							<Route exact path="/mysurveys" element={<UserSurveys />}></Route>
+
 							<Route
 								exact
 								path="/createsurvey"
@@ -54,7 +47,7 @@ function App() {
 				</div>
 
 				<div className="footer">
-					<h3 level={5} style={{ color: "white", textAlign: "center" }}>
+					<h3>
 						SurveyApp All rights reserved
 						<br />
 						<div>

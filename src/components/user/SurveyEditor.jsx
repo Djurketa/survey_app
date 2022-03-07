@@ -24,7 +24,15 @@ function SurveyEditor() {
 				<div className="editor-buttons-wrapper">
 					<button
 						onClick={displayActiveMenu}
-						className={`editor-btns ${
+						className={`btn btn-primary ${
+							activeMenu == "edit-survey" ? "active-menu-btn" : ""
+						}`}
+						data-active="edit-survey">
+						Edit Survey
+					</button>
+					<button
+						onClick={displayActiveMenu}
+						className={`btn btn-primary ${
 							activeMenu == "add-question" ? "active-menu-btn" : ""
 						}`}
 						data-active="add-question">
@@ -32,40 +40,36 @@ function SurveyEditor() {
 					</button>
 					<button
 						onClick={displayActiveMenu}
-						className={`editor-btns ${
+						className={`btn btn-primary ${
 							activeMenu == "edit-question" ? "active-menu-btn" : ""
 						}`}
 						data-active="edit-question">
 						Edit Question
-					</button>
-					<button
-						onClick={displayActiveMenu}
-						className={`editor-btns ${
-							activeMenu == "edit-survey" ? "active-menu-btn" : ""
-						}`}
-						data-active="edit-survey">
-						Edit Survey
 					</button>
 				</div>
 				<div className="editor-content-wrapper">
 					{activeMenu == "add-question" ? <AddQuestion /> : ""}
 					{activeMenu == "edit-question" ? <EditQuestion /> : ""}
 					{activeMenu == "edit-survey" ? <EditSurvey /> : ""}
-					{!survey.survey_id ? (
-						<button onClick={handleSurveySave} className="editor-btns save">
-							SAVE
-						</button>
-					) : (
-						""
-					)}
-					<button onClick={handleSurveySave} className="editor-btns edit">
-						Update
-					</button>
+					<div className="form-group ">
+						{!survey.survey_id && survey.questions.length ? (
+							<button onClick={handleSurveySave} className="btn btn-primary">
+								Save
+							</button>
+						) : (
+							""
+						)}
+						{survey.survey_id && survey.questions.length ? (
+							<button onClick={handleSurveySave} className="btn btn-primary">
+								Update
+							</button>
+						) : (
+							""
+						)}
+					</div>
 				</div>
 			</div>
 			<div className="survey-preview-wrapper">
-				<h1 className="survey-title">{survey.title}</h1>
-				<p className="survey-description">{survey.description}</p>
 				<QuestionsList />
 			</div>
 		</div>

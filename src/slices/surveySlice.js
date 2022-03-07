@@ -5,6 +5,7 @@ const defaultState = {
 	title: "Survey Title",
 	description: "Survey description",
 	questions: [],
+	category_id: "1",
 };
 export const LoginSurveysAsync = createAsyncThunk(
 	"surveys/LoginSurveysAsync",
@@ -114,7 +115,6 @@ export const surveySlice = createSlice({
 		},
 		[getSurveyAsync.fulfilled]: (state, action) => {
 			// return action.payload;
-			console.log(action.payload);
 			return { ...state, ...action.payload };
 		},
 		[insertSurveysAsync.fulfilled]: (state, action) => {

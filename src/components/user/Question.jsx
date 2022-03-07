@@ -1,21 +1,43 @@
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import QuestionBtns from "./QuestionBtns";
 function Question({ question, rownum }) {
 	const currentQuestion = useSelector((state) => state.survey.currentQuestion);
+	const [answers, setAnswers] = useState([]);
+	const [checked, setChecked] = useState();
 
+	function isChecked(e) {
+		setChecked(true);
+	}
+	function handleCheckboxChange(e) {
+		const ans = {
+			answer_id: e.target.id,
+			question_id: e.target.getAttribute("name"),
+			checked: e.target.checked,
+		};
+		if (ans.checked) {
+			setAnswers([...answers, ans]);
+		} else {
+			const filtered = answers.filter((item) => {
+				return item.answer_id != ans.answer_id;
+			});
+			setAnswers(filtered);
+		}
+	}
 	function renderQuestion(question, rownum) {
-		console.log(rownum);
 		switch (question.type) {
 			case "multiple-choice":
 				return (
 					<div
+						question_id={question.id}
 						className={`question-wrapper ${
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
-						<h3>
+						<h2>
 							{rownum}. {question.title}
-						</h3>
+						</h2>
 						{question.options.map((option, key) => {
 							return (
 								<div key={key}>
@@ -24,7 +46,7 @@ function Question({ question, rownum }) {
 										id={option.id}
 										name={question.id}
 										value={option.ans}></input>
-									<label htmlFor={option.id} name={option.ans}>
+									<label htmlFor={question.id} name={option.ans}>
 										{option.ans}
 									</label>
 								</div>
@@ -37,16 +59,19 @@ function Question({ question, rownum }) {
 			case "checkbox":
 				return (
 					<div
+						question_id={question.id}
 						className={`question-wrapper ${
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
-						<h3>
+						<h2>
 							{rownum}. {question.title}
-						</h3>
+						</h2>
 						{question.options.map((option, key) => {
 							return (
 								<div key={key}>
 									<input
+										onClick={isChecked}
+										onChange={handleCheckboxChange}
 										type="checkbox"
 										id={option.id}
 										name={question.id}
@@ -62,16 +87,17 @@ function Question({ question, rownum }) {
 			case "multiple-line":
 				return (
 					<div
+						question_id={question.id}
 						className={`question-wrapper ${
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
-						<h3>
+						<h2>
 							{rownum}. {question.title}
-						</h3>
+						</h2>
 						<textarea
 							id={question.id}
 							name={question.title}
-							rows="5"
+							rows="1"
 							cols="100"></textarea>
 						<QuestionBtns question_id={question.id} />
 					</div>
@@ -80,12 +106,13 @@ function Question({ question, rownum }) {
 			case "single-line":
 				return (
 					<div
+						question_id={question.id}
 						className={`question-wrapper ${
 							currentQuestion.id == question.id ? "active-question" : ""
 						}`}>
-						<h3>
+						<h2>
 							{rownum}. {question.title}
-						</h3>
+						</h2>
 						<input
 							type="text"
 							id={question.id}

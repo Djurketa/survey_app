@@ -28,9 +28,7 @@ function Navbar() {
 					<li>
 						<NavLink to="/surveys"> Surveys</NavLink>
 					</li>
-					<li>
-						<NavLink to="/questions"> Questionnaires</NavLink>
-					</li>
+
 					{session.user_id && (
 						<li>
 							<NavLink to="/createsurvey"> Create survey</NavLink>

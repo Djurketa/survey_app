@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentQuestion, deleteQuestion } from "../../slices/surveySlice";
+import { useLocation } from "react-router-dom";
 
 function QuestionBtns({ question_id }) {
-	const survey = useSelector((state) => state.survey);
-
 	const dispatch = useDispatch();
-
+	const location = useLocation();
+	console.log(location.pathname, location.pathname == "/createsurvey");
 	function handleEditClick(e) {
 		dispatch(setCurrentQuestion(question_id));
 	}
@@ -15,14 +15,18 @@ function QuestionBtns({ question_id }) {
 		dispatch(deleteQuestion(question_id));
 	}
 	return (
-		<div className="question-btns-wrapper">
-			<button onClick={handleEditClick} className="editor-btns edit">
-				Edit
-			</button>
-			<button onClick={handleDeleteClick} className="editor-btns del">
-				Delete
-			</button>
-		</div>
+		<>
+			{location.pathname == "/createsurvey" && (
+				<div className="question-btns-wrapper">
+					<button onClick={handleEditClick} className="btn btn-sm btn-primary">
+						Select
+					</button>
+					<button onClick={handleDeleteClick} className="btn btn-sm btn-danger">
+						Delete
+					</button>
+				</div>
+			)}
+		</>
 	);
 }
 
