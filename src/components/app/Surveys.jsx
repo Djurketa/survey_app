@@ -22,8 +22,8 @@ function Surveys({ simplified }) {
 		<>
 			{!simplified ? <h2 className="main-heading">Surveys</h2> : ""}
 			<div className="survey-card-container">
-				{surveys?.map((survey) => (
-					<Survey survey={survey} />
+				{surveys?.map((survey, key) => (
+					<Survey key={key} survey={survey} />
 				))}
 			</div>
 		</>

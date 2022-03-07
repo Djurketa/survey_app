@@ -25,6 +25,7 @@ function Question({ question, rownum }) {
 			});
 			setAnswers(filtered);
 		}
+		console.log(answers);
 	}
 	function renderQuestion(question, rownum) {
 		switch (question.type) {
@@ -42,6 +43,8 @@ function Question({ question, rownum }) {
 							return (
 								<div key={key}>
 									<input
+										onClick={isChecked}
+										onChange={handleCheckboxChange}
 										type="radio"
 										id={option.id}
 										name={question.id}
