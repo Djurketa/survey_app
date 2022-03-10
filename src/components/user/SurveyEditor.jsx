@@ -69,7 +69,7 @@ function SurveyEditor() {
 					</div>
 				</div>
 			</div>
-			<div className="survey-preview-wrapper">
+			<div className="survey-preview-wrapper" id="preview-weapper">
 				<QuestionsList />
 			</div>
 		</div>
