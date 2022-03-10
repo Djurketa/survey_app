@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
 	}
 });
 app.use(express.static(path.resolve(__dirname, "build")));
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
 	try {
 		// Get user input
 		const { username, password } = req.body;
@@ -69,7 +69,7 @@ app.post("/register", async (req, res) => {
 });
 
 // Login
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
 	try {
 		// Get user input
 		const { username, password } = req.body.payload;
@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
 	}
 });
 
-app.post("/survey", auth, async (req, res) => {
+app.post("/api/survey", auth, async (req, res) => {
 	if (req.body.payload.survey_id) {
 		await db.deleteSurvey(req.body.payload.survey_id);
 	}
@@ -129,26 +129,26 @@ app.post("/survey", auth, async (req, res) => {
 	res.status(200).json({ ...survey, questions });
 });
 
-app.get("/survey/:id", auth, async (req, res) => {
+app.get("/api/survey/:id", auth, async (req, res) => {
 	const survey_id = req.params.id;
 	const [survey] = await db.selectSurvey(survey_id);
 	const questions = await db.selectQuestions(survey_id);
 	console.log();
 	res.status(200).json({ ...survey, questions });
 });
-app.delete("/updatesurvey", async (req, res) => {
+app.delete("/api/updatesurvey", async (req, res) => {
 	const results = await db.updateSurvey(req.body);
 	res.status(200).json(results);
 });
-app.get("/surveys", async (req, res) => {
+app.get("/api/surveys", async (req, res) => {
 	const surveys = await db.getAllSurveys(req.query.limit);
 	res.status(200).json({ surveys });
 });
-app.get("/usersurveys", async (req, res) => {
+app.get("/api/usersurveys", async (req, res) => {
 	const surveys = await db.getUserSurveys(req.query.user_id);
 	res.status(200).json({ surveys });
 });
-app.get("/selectSurvey", async (req, res) => {
+app.get("/api/selectSurvey", async (req, res) => {
 	console.log(req.query);
 
 	const [survey] = await db.selectSurvey(req.query.id);
@@ -156,11 +156,11 @@ app.get("/selectSurvey", async (req, res) => {
 	console.log({ ...survey, questions });
 	res.status(200).json({ ...survey, questions });
 });
-app.get("/stats", async (req, res) => {
+app.get("/api/stats", async (req, res) => {
 	const stats = await db.getStats();
 	res.status(200).json({ stats });
 });
-app.post("/createSurvayQuestions", async (req, res) => {
+app.post("/api/createSurvayQuestions", async (req, res) => {
 	const results = await db.createSurvayQuestions(req.body);
 	res.status(201).json({ id: results });
 });

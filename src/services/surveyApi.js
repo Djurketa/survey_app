@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const surveyApiHeaders = {
-	host: "%PUBLIC_URL%",
+	host: "",
 };
-const baseUrl = "%PUBLIC_URL%";
+const baseUrl = "";
 const createRequest = (url) => ({ url, headers: surveyApiHeaders });
 
 export const surveyApi = createApi({
@@ -11,10 +11,10 @@ export const surveyApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl }),
 	endpoints: (builder) => ({
 		getStats: builder.query({
-			query: () => createRequest("/stats"),
+			query: () => createRequest("/api/stats"),
 		}),
 		getSurveys: builder.query({
-			query: (limit) => createRequest("/surveys?limit=" + limit),
+			query: (limit) => createRequest("/api/surveys?limit=" + limit),
 		}),
 		createSurvayQuestions: builder.query({
 			query: (survay) =>

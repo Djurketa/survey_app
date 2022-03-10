@@ -10,7 +10,7 @@ const defaultState = {
 export const LoginSurveysAsync = createAsyncThunk(
 	"surveys/LoginSurveysAsync",
 	async (payload) => {
-		const response = await fetch("%PUBLIC_URL%/login", {
+		const response = await fetch("/api/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const LoginSurveysAsync = createAsyncThunk(
 export const insertSurveysAsync = createAsyncThunk(
 	"surveys/insertSurveysAsync",
 	async (payload) => {
-		const response = await fetch("%PUBLIC_URL%/survey", {
+		const response = await fetch("/api/survey", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const insertSurveysAsync = createAsyncThunk(
 export const getSurveyAsync = createAsyncThunk(
 	"surveys/getSurveyAsync",
 	async (payload) => {
-		const response = await fetch("%PUBLIC_URL%/selectSurvey?id=" + payload);
+		const response = await fetch("/api/selectSurvey?id=" + payload);
 		if (response.ok) {
 			const survey = await response.json();
 			return survey;
