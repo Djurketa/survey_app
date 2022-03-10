@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getSurveysAsync = createAsyncThunk(
 	"surveys/getSurveysAsync",
 	async () => {
-		const response = await fetch("http://localhost:1337/surveys", {
+		const response = await fetch("%PUBLIC_URL%/surveys", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const getUserSurveysAsync = createAsyncThunk(
 	"surveys/getUserSurveysAsync",
 	async (payload) => {
 		const response = await fetch(
-			"http://localhost:1337/usersurveys?user_id=" + payload,
+			"%PUBLIC_URL%/usersurveys?user_id=" + payload,
 			{
 				method: "GET",
 				headers: {
