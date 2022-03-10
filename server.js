@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 		next();
 	}
 });
-app.use(express.static(path.resolve(__dirname, 'build')));
+app.use(express.static(path.resolve(__dirname, "build")));
 app.post("/register", async (req, res) => {
 	try {
 		// Get user input
@@ -165,10 +165,8 @@ app.post("/createSurvayQuestions", async (req, res) => {
 	res.status(201).json({ id: results });
 });
 app.get("*", (req, res) => {
-      res.sendFile(
-        path.join(__dirname, "build","index.html")
-      );
-    });
-app.listen(1337, () => {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+app.listen(process.env.PORT || 1337, () => {
 	console.log("server is running ");
 });
