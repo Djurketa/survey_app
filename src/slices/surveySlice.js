@@ -5,6 +5,7 @@ const defaultState = {
 	title: "Survey Title",
 	description: "Survey description",
 	questions: [],
+	answers: [],
 	category_id: "1",
 };
 export const LoginSurveysAsync = createAsyncThunk(
@@ -104,6 +105,18 @@ export const surveySlice = createSlice({
 				...{ currentQuestion: {}, questions: questions },
 			};
 		},
+		setAnswer: (state, action) => {
+			if (action.payload.ans.checked) {
+				return [...state.answers, action.payload.ans];
+			} else {
+				const filtered = answers.filter((item) => {
+					return item.answer_id != action.payload.ans.answer_id;
+				});
+				state.answers = filtered;
+			}
+
+			console.log(action.payload);
+		},
 	},
 	extraReducers: {
 		[LoginSurveysAsync.fulfilled]: (state, action) => {
@@ -130,5 +143,6 @@ export const {
 	updateQuestion,
 	setCurrentQuestion,
 	deleteQuestion,
+	setAnsewer,
 } = surveySlice.actions;
 export default surveySlice.reducer;

@@ -1,9 +1,11 @@
 import { ConsoleSqlOutlined } from "@ant-design/icons";
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import QuestionBtns from "./QuestionBtns";
+import { setAnsewer } from "../../slices/surveySlice";
 function Question({ question, rownum }) {
+	const dispatch = useDispatch();
 	const currentQuestion = useSelector((state) => state.survey.currentQuestion);
 	const [answers, setAnswers] = useState([]);
 	const [checked, setChecked] = useState();
@@ -16,16 +18,18 @@ function Question({ question, rownum }) {
 			answer_id: e.target.id,
 			question_id: e.target.getAttribute("name"),
 			checked: e.target.checked,
+			type: e.target.getAttribute("type"),
 		};
-		if (ans.checked) {
-			setAnswers([...answers, ans]);
-		} else {
-			const filtered = answers.filter((item) => {
-				return item.answer_id != ans.answer_id;
-			});
-			setAnswers(filtered);
-		}
-		console.log(answers);
+		dispatch(setAnsewer(ans));
+		// if (ans.checked) {
+		// 	setAnswers([...answers, ans]);
+		// } else {
+		// 	const filtered = answers.filter((item) => {
+		// 		return item.answer_id != ans.answer_id;
+		// 	});
+		// 	setAnswers(filtered);
+		// }
+		// console.log(answers);
 	}
 	function renderQuestion(question, rownum) {
 		switch (question.type) {
