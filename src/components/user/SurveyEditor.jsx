@@ -4,15 +4,18 @@ import QuestionsList from "./QuestionsList";
 import EditQuestion from "./EditQuestion";
 import EditSurvey from "./EditSurvey";
 import AddQuestion from "./AddQuestion";
-import { insertSurveysAsync } from "../../slices/surveySlice";
+import { insertSurveysAsync, setActiveMenu } from "../../slices/surveySlice";
 
 function SurveyEditor() {
 	const dispatch = useDispatch();
-	const [activeMenu, setActiveMenu] = useState("add-question");
+
+	// const [activeMenu, setActiveMenu] = useState("add-question");
 	const survey = useSelector((state) => state.survey);
+	const activeMenu = survey.activeMenu;
 
 	function displayActiveMenu(e) {
-		setActiveMenu(e.target.getAttribute("data-active"));
+		const menu = e.target.getAttribute("data-active");
+		dispatch(setActiveMenu(menu));
 	}
 	function handleSurveySave() {
 		dispatch(insertSurveysAsync(survey));

@@ -6,16 +6,14 @@ import Survey from "./Survey";
 
 function Surveys({ simplified }) {
 	const dispatch = useDispatch();
-	const limit = simplified ? 5 : 100;
-
 	const surveysStatus = useSelector((state) => state.surveys.status);
 	const surveys = useSelector((state) => {
 		return state.surveys.surveys;
 	});
 	useEffect(() => {
-		if (surveysStatus === "idle") {
-			dispatch(getSurveysAsync(limit));
-		}
+		// if (surveysStatus === "idle") {
+		dispatch(getSurveysAsync());
+		// }
 	}, []);
 
 	return (

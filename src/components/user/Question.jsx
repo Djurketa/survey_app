@@ -1,35 +1,25 @@
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import QuestionBtns from "./QuestionBtns";
-import { setAnsewer } from "../../slices/surveySlice";
+import { setAnswer } from "../../slices/surveySlice";
 function Question({ question, rownum }) {
 	const dispatch = useDispatch();
 	const currentQuestion = useSelector((state) => state.survey.currentQuestion);
-	const [answers, setAnswers] = useState([]);
 	const [checked, setChecked] = useState();
 
 	function isChecked(e) {
 		setChecked(true);
 	}
-	function handleCheckboxChange(e) {
-		const ans = {
+	function handleAnswerChange(e) {
+		const answer = {
 			answer_id: e.target.id,
 			question_id: e.target.getAttribute("name"),
-			checked: e.target.checked,
+			checked: e.target.checked || false,
 			type: e.target.getAttribute("type"),
+			value: e.target.value,
 		};
-		dispatch(setAnsewer(ans));
-		// if (ans.checked) {
-		// 	setAnswers([...answers, ans]);
-		// } else {
-		// 	const filtered = answers.filter((item) => {
-		// 		return item.answer_id != ans.answer_id;
-		// 	});
-		// 	setAnswers(filtered);
-		// }
-		// console.log(answers);
+		dispatch(setAnswer(answer));
 	}
 	function renderQuestion(question, rownum) {
 		switch (question.type) {
@@ -48,14 +38,12 @@ function Question({ question, rownum }) {
 								<div key={key}>
 									<input
 										onClick={isChecked}
-										onChange={handleCheckboxChange}
+										onChange={handleAnswerChange}
 										type="radio"
 										id={option.id}
 										name={question.id}
 										value={option.ans}></input>
-									<label htmlFor={question.id} name={option.ans}>
-										{option.ans}
-									</label>
+									<label htmlFor={option.id}>{option.ans}</label>
 								</div>
 							);
 						})}
@@ -78,7 +66,7 @@ function Question({ question, rownum }) {
 								<div key={key}>
 									<input
 										onClick={isChecked}
-										onChange={handleCheckboxChange}
+										onChange={handleAnswerChange}
 										type="checkbox"
 										id={option.id}
 										name={question.id}
@@ -102,8 +90,10 @@ function Question({ question, rownum }) {
 							{rownum}. {question.title}
 						</h2>
 						<textarea
+							onChange={handleAnswerChange}
 							id={question.id}
-							name={question.title}
+							name={question.id}
+							type="textarea"
 							rows="1"
 							cols="100"></textarea>
 						<QuestionBtns question_id={question.id} />
@@ -121,9 +111,10 @@ function Question({ question, rownum }) {
 							{rownum}. {question.title}
 						</h2>
 						<input
+							onChange={handleAnswerChange}
 							type="text"
 							id={question.id}
-							name={question.title}
+							name={question.id}
 							value={question.ans}></input>
 						<QuestionBtns question_id={question.id} />
 					</div>

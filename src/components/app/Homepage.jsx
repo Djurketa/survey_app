@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGetSurveysQuery, useGetStatsQuery } from "../../services/surveyApi";
 import Surveys from "./Surveys";
+import Loader from "../user/Loader";
 
 function Homepage() {
 	const { data, isFetching } = useGetStatsQuery();
 	const globalStats = data?.stats;
 
-	if (isFetching) return "Loading...";
+	if (isFetching) {
+		return <Loader />;
+	}
 
 	return (
 		<>
@@ -31,12 +34,9 @@ function Homepage() {
 					surveys of various categories are created daily
 				</p>
 			</div>
-			<Surveys simplified />
+			<Surveys simplified={true} />
 			<div className="show-more">
 				<Link to="/surveys">Show More</Link>
-			</div>
-			<div className="home-heading-container">
-				<h2 className="heading">Top 10 Questions</h2>
 			</div>
 		</>
 	);

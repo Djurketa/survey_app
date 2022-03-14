@@ -134,15 +134,14 @@ app.get("/api/survey/:id", auth, async (req, res) => {
 	const survey_id = req.params.id;
 	const [survey] = await db.selectSurvey(survey_id);
 	const questions = await db.selectQuestions(survey_id);
-	console.log();
 	res.status(200).json({ ...survey, questions });
 });
 app.delete("/api/updatesurvey", async (req, res) => {
 	const results = await db.updateSurvey(req.body);
 	res.status(200).json(results);
 });
-app.get("/api/surveys", async (req, res) => {
-	const surveys = await db.getAllSurveys(req.query.limit);
+app.get("/api/surveys/", async (req, res) => {
+	const surveys = await db.getAllSurveys();
 	res.status(200).json({ surveys });
 });
 app.get("/api/usersurveys", async (req, res) => {
@@ -150,24 +149,30 @@ app.get("/api/usersurveys", async (req, res) => {
 	res.status(200).json({ surveys });
 });
 app.get("/api/selectSurvey", async (req, res) => {
-	console.log(req.query);
-
 	const [survey] = await db.selectSurvey(req.query.id);
 	const questions = await db.selectQuestions(req.query.id);
-	console.log({ ...survey, questions });
 	res.status(200).json({ ...survey, questions });
 });
 app.get("/api/stats", async (req, res) => {
 	const stats = await db.getStats();
 	res.status(200).json({ stats });
 });
+app.get("/api/getSurveyResult/:id", async (req, res) => {
+	const survey_id = req.params.id;
+	const stats = await db.getSurveyResult(survey_id);
+	res.status(200).json({ stats });
+});
 app.post("/api/createSurvayQuestions", async (req, res) => {
 	const results = await db.createSurvayQuestions(req.body);
 	res.status(201).json({ id: results });
 });
-app.get("/*", (req, res) => {
-	res.sendFile(path.join(__dirname, "public", "index.html"));
+app.post("/api/insertSurveyResults", async (req, res) => {
+	const results = await db.insertSurveyResults(req.body);
+	res.status(201).json({ id: results });
 });
+// app.get("/*", (req, res) => {
+// 	res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 app.listen(process.env.PORT || 1337, () => {
 	console.log("server is running ");
 });

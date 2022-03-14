@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const baseUrl = "http://localhost:1337";
+
 export const getSurveysAsync = createAsyncThunk(
 	"surveys/getSurveysAsync",
 	async () => {
-		const response = await fetch("/api/surveys", {
+		const response = await fetch(baseUrl + "/api/surveys/", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -18,12 +20,15 @@ export const getSurveysAsync = createAsyncThunk(
 export const getUserSurveysAsync = createAsyncThunk(
 	"surveys/getUserSurveysAsync",
 	async (payload) => {
-		const response = await fetch("/api/usersurveys?user_id=" + payload, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const response = await fetch(
+			baseUrl + "/api/usersurveys?user_id=" + payload,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
 		if (response.ok) {
 			const { surveys } = await response.json();
 			return { surveys };

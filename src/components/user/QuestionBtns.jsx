@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentQuestion, deleteQuestion } from "../../slices/surveySlice";
+import {
+	setCurrentQuestion,
+	deleteQuestion,
+	setActiveMenu,
+} from "../../slices/surveySlice";
 import { useLocation } from "react-router-dom";
 
 function QuestionBtns({ question_id }) {
 	const dispatch = useDispatch();
 	const location = useLocation();
-	console.log(location.pathname, location.pathname == "/createsurvey");
 	function handleEditClick(e) {
 		dispatch(setCurrentQuestion(question_id));
+		dispatch(setActiveMenu("edit-question"));
 	}
 
 	function handleDeleteClick(e) {

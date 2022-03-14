@@ -84,6 +84,20 @@ h6 {
 .logo-img {
 	height: 50px;
 }
+.rotate-logo {
+	animation: rotation 0.8s infinite;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 .logo {
 	color: #1890ff;
 	line-height: 40px;
@@ -367,8 +381,9 @@ select {
 	border-radius: 10px;
 	box-shadow: 0 7px 14px 0 rgb(8 15 52/3%);
 }
-.question-wrapper [type="text"] {
-	width: 80%;
+.question-wrapper [type="text"],
+.question-wrapper [type="textarea"] {
+	width: 98%;
 }
 .survey-title {
 	text-align: center;
@@ -481,4 +496,43 @@ select {
 	text-align: center;
 	padding: 10px;
 	border-bottom: 1px solid lightgray;
+}
+.close {
+	display: none;
+}
+@media only screen and (max-width: 768px) {
+	.editor-wrapper {
+		display: flex;
+		flex-direction: column;
+	}
+	.survey-preview-wrapper {
+		flex: 1;
+		overflow-y: scroll;
+		padding: none;
+		width: 100%;
+		max-width: none;
+		padding: 0;
+	}
+	.editor-edit-question {
+		position: fixed;
+		width: 95%;
+		padding: 0;
+		margin: 0;
+		left: 50%;
+		background: white;
+		z-index: 1;
+		top: 74%;
+		transform: translate(-50%, -50%);
+		border-radius: 12px;
+		box-shadow: 0 0 3px 0 #6c6c6c;
+	}
+	.close {
+		display: block;
+		position: absolute;
+		right: -15px;
+		font-size: 20px;
+		top: -20px;
+		background-color: #343a40;
+		color: white;
+	}
 }

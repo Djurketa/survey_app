@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+const baseUrl = "http://localhost:1337";
 const defaultState = {
 	currentQuestion: {},
 	title: "Survey Title",
@@ -7,11 +7,12 @@ const defaultState = {
 	questions: [],
 	answers: [],
 	category_id: "1",
+	activeMenu: "add-question",
 };
 export const LoginSurveysAsync = createAsyncThunk(
 	"surveys/LoginSurveysAsync",
 	async (payload) => {
-		const response = await fetch("/api/login", {
+		const response = await fetch(baseUrl + "/api/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,7 +28,7 @@ export const LoginSurveysAsync = createAsyncThunk(
 export const insertSurveysAsync = createAsyncThunk(
 	"surveys/insertSurveysAsync",
 	async (payload) => {
-		const response = await fetch("/api/survey", {
+		const response = await fetch(baseUrl + "/api/survey", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -45,7 +46,24 @@ export const insertSurveysAsync = createAsyncThunk(
 export const getSurveyAsync = createAsyncThunk(
 	"surveys/getSurveyAsync",
 	async (payload) => {
-		const response = await fetch("/api/selectSurvey?id=" + payload);
+		const response = await fetch(baseUrl + "/api/selectSurvey?id=" + payload);
+		if (response.ok) {
+			const survey = await response.json();
+			return survey;
+		}
+	}
+);
+export const insertSurveyResults = createAsyncThunk(
+	"insertSurveyResults",
+	async (payload) => {
+		const response = await fetch(baseUrl + "/api/insertSurveyResults", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				// "x-access-token": sessionStorage.getItem("token"),
+			},
+			body: JSON.stringify({ payload }),
+		});
 		if (response.ok) {
 			const survey = await response.json();
 			return survey;
@@ -58,6 +76,10 @@ export const surveySlice = createSlice({
 	// initialState: [],
 	initialState: defaultState,
 	reducers: {
+		setActiveMenu: (state, action) => {
+			console.log(action.payload);
+			state.activeMenu = action.payload;
+		},
 		setSession: (state, action) => {
 			sessionStorage.setItem("session", JSON.stringify(action.payload));
 			const session = action.payload || false;
@@ -106,16 +128,23 @@ export const surveySlice = createSlice({
 			};
 		},
 		setAnswer: (state, action) => {
-			if (action.payload.ans.checked) {
-				return [...state.answers, action.payload.ans];
-			} else {
-				const filtered = answers.filter((item) => {
-					return item.answer_id != action.payload.ans.answer_id;
+			const answer = action.payload;
+
+			if (answer.checked && answer.type == "checkbox") {
+				state.answers.push(answer);
+			} else if (!answer.checked && answer.type == "checkbox") {
+				const filtered = state.answers.filter((item) => {
+					return item.answer_id != answer.answer_id;
 				});
 				state.answers = filtered;
 			}
-
-			console.log(action.payload);
+			if (answer.type != "checkbox") {
+				const filtered = state.answers.filter((item) => {
+					return item.question_id != answer.question_id;
+				});
+				filtered.push(answer);
+				state.answers = filtered;
+			}
 		},
 	},
 	extraReducers: {
@@ -132,17 +161,21 @@ export const surveySlice = createSlice({
 			// state.questions = action.payload.questions;
 			return { ...state, ...action.payload };
 		},
+		[insertSurveyResults.fulfilled]: (state, action) => {
+			console.log(action.payload);
+		},
 	},
 });
 
 export const {
 	setSession,
+	setActiveMenu,
 	addItem,
 	addQuestion,
 	editSurvey,
 	updateQuestion,
 	setCurrentQuestion,
 	deleteQuestion,
-	setAnsewer,
+	setAnswer,
 } = surveySlice.actions;
 export default surveySlice.reducer;

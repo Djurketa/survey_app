@@ -14,8 +14,8 @@ function findUserPassword(username) {
 function createUser(user) {
 	return knex("users").insert(user);
 }
+
 function createSurvey(survey) {
-	console.log("kurcina");
 	return knex("survey").insert({
 		title: survey.payload.title,
 		desc: survey.payload.description,
@@ -30,11 +30,6 @@ function createSurvayQuestions(questions) {
 	return knex.transaction((trx) => {
 		const queries = [];
 		questions.forEach((question) => {
-			// { question obj
-			// 	title: question.title,
-			// 	type: question.type,
-			// 	survey_id: question.survey_id,
-			// }
 			const query = knex("survey_questions").insert(question).transacting(trx); // This makes every update be in the same transaction
 			queries.push(query);
 		});
@@ -46,17 +41,23 @@ function createSurvayQuestions(questions) {
 function createQuestionAnswers(answers) {
 	return knex("question_answers").insert(answers);
 }
-
+function insertSurveyResults(answers) {
+	const prepared = answers.payload.map((answer) => {
+		return {
+			question_id: answer.question_id,
+			answer_id: answer.answer_id,
+			question_type: answer.type,
+			value: answer.value,
+		};
+	});
+	return knex("survey_results").insert(prepared);
+}
 function deleteSurvey(id) {
 	return knex("survey").delete().where("survey_id", id);
 }
 
-function getAllSurveys(limit) {
-	if (limit) {
-		return knex("vw_survey").select("*").limit(limit);
-	} else {
-		return knex("vw_survey").select("*");
-	}
+function getAllSurveys() {
+	return knex("vw_survey").select("*").orderBy("date_created", "desc");
 }
 function getUserSurveys(id) {
 	return knex("vw_survey").select("*").where({ user_id: id });
@@ -83,7 +84,7 @@ function selectQuestions(id) {
 		.select(
 			"q.id           as _id",
 			"q.title        as _title",
-			"q.type        as  _type",
+			"q.type         as _type",
 			"qa.answer_id   as _options__id",
 			"qa.answer      as _options__ans"
 		)
@@ -95,6 +96,9 @@ function selectQuestions(id) {
 	return knexnest(sql).then(function (data) {
 		return data;
 	});
+}
+function getSurveyResult(id) {
+	return knex("vw_results").where({ survey_id: id });
 }
 
 module.exports = {
@@ -110,4 +114,6 @@ module.exports = {
 	selectSurvey,
 	selectQuestions,
 	getUserSurveys,
+	insertSurveyResults,
+	getSurveyResult,
 };

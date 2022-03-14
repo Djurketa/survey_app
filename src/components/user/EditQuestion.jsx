@@ -1,13 +1,15 @@
 import { nanoid } from "nanoid";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateQuestion } from "../../slices/surveySlice";
+import { setActiveMenu, updateQuestion } from "../../slices/surveySlice";
 
 function EditQuestion() {
 	const dispatch = useDispatch();
 
 	const currentQuestion = useSelector((state) => state.survey.currentQuestion);
-
+	function handleCloseClick() {
+		dispatch(setActiveMenu(""));
+	}
 	function handleQuestionTitleChange(e) {
 		const questionId = e.target.id;
 		const questionTitle = e.target.value;
@@ -70,6 +72,9 @@ function EditQuestion() {
 		<>
 			{currentQuestion.id ? (
 				<div className="editor-edit-question">
+					<button onClick={handleCloseClick} className="btn close">
+						X
+					</button>
 					<div className="form-group">
 						<label htmlFor="question-title">
 							{currentQuestion.id}. Question title
