@@ -47,7 +47,9 @@ function Login() {
 					}}
 					type="password"
 				/>
-				<button onClick={handleLoginClick} className="editor-btns save">
+			</div>
+			<div className="form-group">
+				<button onClick={handleLoginClick} className="btn btn-primary">
 					Login
 				</button>
 			</div>

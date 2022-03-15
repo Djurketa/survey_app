@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import icon from "../../images/logo3.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setSession } from "../../slices/surveySlice";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 function Navbar() {
-	const session = useSelector((state) => state.survey.session);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const session = useSelector((state) => state.survey.session);
+	const list = useRef(null);
 
 	function handleLogoutClick() {
 		dispatch(setSession({}));
+		navigate("/");
+	}
+	function handleMenuClick() {
+		list.current.classList.toggle("df");
 	}
 	return (
 		<div className="nav-container">
@@ -21,9 +28,9 @@ function Navbar() {
 				</Link>
 			</div>
 			<div className="nav-middle">
-				<ul className="menu" theme="dark">
+				<ul className="menu" ref={list}>
 					<li>
-						<NavLink to="/"> Home </NavLink>
+						<NavLink to="/">Home</NavLink>
 					</li>
 					<li>
 						<NavLink to="/surveys"> Surveys</NavLink>
@@ -43,16 +50,24 @@ function Navbar() {
 			</div>
 			<div className="nav-rigth">
 				{!session.user_id && (
-					<NavLink className="nav-btn" to="/login">
+					<NavLink className="nav-btn login-btn" to="/login">
 						Login
 					</NavLink>
 				)}
 
 				{session.user_id && (
-					<button className="nav-btn" onClick={handleLogoutClick} to="/logout">
-						Logout
-					</button>
+					<>
+						<button
+							className="nav-btn logout-btn"
+							onClick={handleLogoutClick}
+							to="/logout">
+							Logout
+						</button>
+					</>
 				)}
+				<button className="menu-btn" onClick={handleMenuClick}>
+					<HiOutlineDotsVertical className="menu-img" />
+				</button>
 			</div>
 		</div>
 	);
