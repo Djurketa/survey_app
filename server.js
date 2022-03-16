@@ -170,9 +170,9 @@ app.post("/api/insertSurveyResults", async (req, res) => {
 	const results = await db.insertSurveyResults(req.body);
 	res.status(201).json({ id: results });
 });
-// app.get("/*", (req, res) => {
-// 	res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+app.get("/*", (req, res) => {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 app.listen(process.env.PORT || 1337, () => {
 	console.log("server is running ");
 });
