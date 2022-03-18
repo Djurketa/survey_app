@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// const baseUrl = "http://localhost:1337";
-const baseUrl = "https://surveyapp2022.herokuapp.com";
+const baseUrl = "http://localhost:1337";
+// const baseUrl = "https://surveyapp2022.herokuapp.com";
 
 const defaultState = {
 	currentQuestion: {},
@@ -21,10 +21,8 @@ export const LoginSurveysAsync = createAsyncThunk(
 			},
 			body: JSON.stringify({ payload }),
 		});
-		if (response.ok) {
-			const responce = await response.json();
-			return responce;
-		}
+		const responce = await response.json();
+		return responce;
 	}
 );
 export const insertSurveysAsync = createAsyncThunk(
@@ -86,6 +84,9 @@ export const surveySlice = createSlice({
 			sessionStorage.setItem("session", JSON.stringify(action.payload));
 			const session = action.payload || false;
 			state.session = session || "";
+		},
+		setMessage: (state, action) => {
+			state.msg = action.payload;
 		},
 		addQuestion: (state, action) => {
 			state.currentQuestion = action.payload;
@@ -151,9 +152,12 @@ export const surveySlice = createSlice({
 	},
 	extraReducers: {
 		[LoginSurveysAsync.fulfilled]: (state, action) => {
-			sessionStorage.setItem("session", JSON.stringify(action.payload));
-			console.log(action.payload);
-			state.session = action.payload;
+			if (action.payload.msg) {
+				state.msg = action.payload.msg;
+			} else {
+				sessionStorage.setItem("session", JSON.stringify(action.payload));
+				state.session = action.payload;
+			}
 		},
 		[getSurveyAsync.fulfilled]: (state, action) => {
 			// return action.payload;
@@ -171,6 +175,7 @@ export const surveySlice = createSlice({
 
 export const {
 	setSession,
+	setMessage,
 	setActiveMenu,
 	addItem,
 	addQuestion,

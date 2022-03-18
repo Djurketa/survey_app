@@ -11,7 +11,6 @@ function Homepage() {
 	if (isFetching) {
 		return <Loader />;
 	}
-
 	return (
 		<>
 			<div className="home-heading-container">
@@ -34,6 +33,7 @@ function Homepage() {
 					surveys of various categories are created daily
 				</p>
 			</div>
+
 			<Surveys simplified={true} />
 			<div className="show-more">
 				<Link to="/surveys">Show More</Link>

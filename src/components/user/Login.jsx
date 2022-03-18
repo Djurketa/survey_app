@@ -8,7 +8,7 @@ import { Navigate } from "react-router";
 import { useState } from "react";
 
 function Login() {
-	const session = useSelector((state) => state.survey.session);
+	const survey = useSelector((state) => state.survey);
 
 	const [username, setUsername] = useState();
 	const [password, setPassword] = useState();
@@ -20,8 +20,7 @@ function Login() {
 
 	return (
 		<div className="login-wrapper">
-			{session.user_id ? <Navigate to="/createsurvey" /> : ""}
-
+			{survey.session.user_id ? <Navigate to="/createsurvey" /> : ""}
 			<div className="logo-login-wrapper">
 				<div className="logo-container">
 					<img className="logo-img" src={icon} />

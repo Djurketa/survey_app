@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { getSurveyAsync } from "../../slices/surveySlice";
 import QuestionsList from "./QuestionsList";
 function SurveyFill() {
+	window.scrollTo({ top: 0 });
+
 	const { survey_id } = useParams();
 
 	const dispatch = useDispatch();

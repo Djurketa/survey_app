@@ -61,7 +61,14 @@ h6 {
 }
 .nav-left {
 	display: flex;
+	width: 15%;
 	align-items: center;
+}
+.nav-mid {
+	width: 70%;
+}
+.nav-rigth {
+	width: 15%;
 }
 .nav-btn {
 	width: 80px;
@@ -124,13 +131,14 @@ h6 {
 }
 .menu {
 	display: flex;
-	width: 700px;
 	justify-content: space-around;
 	height: 100%;
 	align-items: center;
 }
 .menu li {
 	list-style-type: none;
+	width: 135px;
+	text-align: center;
 }
 .menu li a {
 	color: rgba(255, 255, 255, 0.65);
@@ -167,7 +175,7 @@ h6 {
 	padding: 10px;
 	font-weight: bold;
 	font-size: 40px;
-	line-height: 50px;
+	/* line-height: 50px; */
 }
 .highlighted {
 	font-weight: bold;
@@ -473,6 +481,7 @@ select {
 	border: 1px solid lightgray;
 	padding: 100px 40px;
 	border-radius: 5px;
+	position: relative;
 }
 
 .logo-login-wrapper {
@@ -510,8 +519,8 @@ select {
 }
 
 .item-category-img img {
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	align-self: center;
 	border-radius: 50%;
 	border: 1px solid #097fd666;
@@ -553,7 +562,29 @@ select {
 .close {
 	display: none;
 }
-@media only screen and (max-width: 768px) {
+.error {
+	position: absolute;
+	background: #ed3a3a;
+	color: white;
+	padding: 4px 16px;
+	border-radius: 10px;
+	top: 110px;
+	right: 50%;
+	transform: translateX(50%);
+	animation-name: move;
+	animation-duration: 1.5s;
+	animation-delay: 1.5s;
+}
+@keyframes move {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+@media only screen and (max-width: 900px) {
 	.editor-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -591,6 +622,9 @@ select {
 		top: -20px;
 		background-color: #343a40;
 		color: white;
+	}
+	.survey-card-container {
+		width: 100%;
 	}
 	.menu {
 		height: calc(100vh - 100px);
@@ -669,4 +703,46 @@ select {
 		display: flex;
 		justify-content: center;
 	}
+}
+
+.card {
+	border: 1px solid #f2f2f2;
+	width: 95%;
+	max-width: 320px;
+	display: block;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 10px auto;
+	border-radius: 5px;
+	box-shadow: 0 0px 5px 0 #e6e2e2;
+	padding: 20px 0;
+}
+.card-sec {
+	margin: 10px 2px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	text-align: center;
+}
+
+.inner-sec {
+	width: 33%;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+p {
+}
+.card-sec p {
+	text-align: center;
+	color: #a4a1a1;
+	font-size: 14px;
+}
+h1 {
+}
+.card-sesc h1 {
+	text-align: center;
 }

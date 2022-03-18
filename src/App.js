@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { Navbar, Homepage, Surveys, Survey } from "./components/app";
+import { Navbar, Homepage, Surveys } from "./components/app";
 import "./App.css";
 import SurveyEditor from "./components/user/SurveyEditor";
 import Login from "./components/user/Login";
@@ -8,17 +8,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSession } from "./slices/surveySlice";
 import UserSurveys from "./components/user/UserSurveys";
 import SurveyFill from "./components/user/SurveyFill";
+import Message from "./components/user/Message";
+
 function App() {
 	const dispatch = useDispatch();
 
+	const msg = useSelector((state) => state.survey.msg);
+
 	dispatch(setSession(JSON.parse(sessionStorage.getItem("session"))));
-	// const session = useSelector((state) => state.survey.session);
-	// console.log("APP", session);
 
 	return (
 		<div className="app">
 			<div className="navbar">
 				<Navbar />
+				{msg && <Message className="error" msg={msg} />}
 			</div>
 			<div className="main">
 				<div className="header">

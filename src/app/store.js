@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { surveyApi } from "../services/surveyApi";
 import surveyItemReducer from "../slices/surveySlice";
 import surveysReducer from "../slices/surveysSlice";

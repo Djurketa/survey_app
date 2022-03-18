@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const surveyApiHeaders = {
 	host: "",
 };
-// const baseUrl = "http://localhost:1337";
-const baseUrl = "https://surveyapp2022.herokuapp.com";
+const baseUrl = "http://localhost:1337";
+// const baseUrl = "https://surveyapp2022.herokuapp.com";
 const createRequest = (url) => ({ url, headers: surveyApiHeaders });
 
 export const surveyApi = createApi({

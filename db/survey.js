@@ -64,7 +64,7 @@ function getUserSurveys(id) {
 }
 function getStats() {
 	return {
-		totalSurveys: 1000,
+		totalSurveys: 1001,
 		totalQuestions: 200,
 		totalResearchs: 1200,
 		totalClosedSurveys: 400,
