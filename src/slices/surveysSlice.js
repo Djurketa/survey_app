@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const baseUrl = "http://localhost:1337";
-// /const baseUrl = "https://surveyapp2022.herokuapp.com";
+// const baseUrl = "http://localhost:1337";
+const baseUrl = "https://surveyapp2022.herokuapp.com";
 
 export const getSurveysAsync = createAsyncThunk(
 	"surveys/getSurveysAsync",
