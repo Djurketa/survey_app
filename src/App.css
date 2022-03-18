@@ -600,6 +600,9 @@ select {
 	.df {
 		display: flex !important;
 	}
+	.nav-rigth {
+		width: 30%;
+	}
 	.editor-edit-question {
 		position: fixed;
 		width: 95%;
