@@ -18,7 +18,15 @@ function Surveys({ simplified }) {
 
 	return (
 		<>
-			{!simplified ? <h2 className="main-heading">Surveys</h2> : ""}
+			{!simplified && (
+				<div>
+					<div className="home-heading-container">
+						<h1 className="welcome-heding">
+							Create and share your own survey in a simple way
+						</h1>
+					</div>
+				</div>
+			)}
 			<div className="survey-card-container">
 				{surveys?.map((survey, key) => (
 					<Survey key={key} survey={survey} />

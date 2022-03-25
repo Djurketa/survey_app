@@ -19,40 +19,42 @@ function Login() {
 	}
 
 	return (
-		<div className="login-wrapper">
-			{survey.session.user_id ? <Navigate to="/createsurvey" /> : ""}
-			<div className="logo-login-wrapper">
-				<div className="logo-container">
-					<img className="logo-img" src={icon} />
+		<>
+			<div className="login-wrapper">
+				{survey.session.user_id ? <Navigate to="/createsurvey" /> : ""}
+				<div className="logo-login-wrapper">
+					<div className="logo-container">
+						<img className="logo-img" src={icon} />
 
-					<Link className="logo" to="home">
-						SurveyApp{" "}
-					</Link>
+						<Link className="logo" to="home">
+							SurveyApp{" "}
+						</Link>
+					</div>
+					<div>Sign in to create survey</div>
 				</div>
-				<div>Sign in to create survey</div>
+				<div className="form-group ">
+					<label htmlFor="username">Username</label>
+					<input
+						onChange={(e) => {
+							setUsername(e.target.value);
+						}}
+						type="text"
+					/>
+					<label htmlFor="password">Password</label>
+					<input
+						onChange={(e) => {
+							setPassword(e.target.value);
+						}}
+						type="password"
+					/>
+				</div>
+				<div className="form-group">
+					<button onClick={handleLoginClick} className="btn btn-primary">
+						Login
+					</button>
+				</div>
 			</div>
-			<div className="form-group ">
-				<label htmlFor="username">Username</label>
-				<input
-					onChange={(e) => {
-						setUsername(e.target.value);
-					}}
-					type="text"
-				/>
-				<label htmlFor="password">Password</label>
-				<input
-					onChange={(e) => {
-						setPassword(e.target.value);
-					}}
-					type="password"
-				/>
-			</div>
-			<div className="form-group">
-				<button onClick={handleLoginClick} className="btn btn-primary">
-					Login
-				</button>
-			</div>
-		</div>
+		</>
 	);
 }
 

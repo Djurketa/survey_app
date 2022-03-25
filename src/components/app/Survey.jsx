@@ -14,7 +14,7 @@ function Survey({ survey = {} }) {
 								require("../../images/categories/" + survey.category_img) || ""
 							}
 						/>
-						<p> Politics</p>
+						<p>{survey.category}</p>
 					</div>
 				</div>
 				<div className="card-sec">
@@ -51,6 +51,7 @@ function Survey({ survey = {} }) {
 				<div className="card-sec">
 					<button className="btn btn-primary">View Survey</button>
 				</div>
+				<ActionButtons survey_id={survey.survey_id} />
 			</Link>
 			{/* <Link
 				className="survey-item-container"

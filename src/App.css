@@ -46,6 +46,7 @@ h6 {
 }
 .navbar {
 	background-color: #001529;
+	background-color: white;
 	padding: 20px;
 }
 .nav-container {
@@ -78,9 +79,15 @@ h6 {
 	background: white;
 	border: none;
 	font-size: 16px;
-	line-height: 50px;
 	color: black;
 	text-align: center;
+}
+.logout-btn {
+	border: 1px solid #4a7aec;
+}
+.login-btn {
+	border: 1px solid #4a7aec;
+	line-height: 50px;
 }
 .menu-btn {
 	display: none;
@@ -143,6 +150,7 @@ h6 {
 .menu li a {
 	color: rgba(255, 255, 255, 0.65);
 	font-size: 18px;
+	color: black;
 }
 .menu li a:hover {
 	color: #006cb5;
@@ -157,6 +165,36 @@ h6 {
 	padding: 10px;
 	text-align: center;
 }
+.filter-wrapper {
+	border: 1px solid rgba(243, 245, 254);
+	margin: 0 auto;
+	width: 60%;
+	padding: 40px 10px;
+	top: -50px;
+	position: relative;
+	background: white;
+	border-radius: 73px;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+.w33 {
+	width: 30%;
+}
+.filter-btn-wrap {
+	display: flex;
+	justify-content: center;
+}
+.filter-input {
+	border: 1px solid #e4e4ed !important;
+	border-radius: 50px;
+	font-size: 18px;
+	padding: 0 28px;
+	box-sizing: border-box;
+}
+.filter-wrapper button {
+	width: 150px;
+}
 .footer {
 	min-height: 150px;
 	background: black;
@@ -165,7 +203,7 @@ h6 {
 .home-heading-container {
 	background-color: #f3f5fe;
 	text-align: center;
-	padding: 100px;
+	padding: 125px 10px;
 	color: black;
 }
 .home-heading-container p {
@@ -194,7 +232,7 @@ h6 {
 }
 .survey-card-container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
 	width: 80%;
@@ -247,19 +285,32 @@ form input {
 	display: flex;
 	flex-direction: row;
 	box-sizing: border-box;
+	background: #f3f5fe;
 }
 
 .editor-menu-wrapper {
 	flex: 0.3 1;
 	padding-top: 12px;
+	background-color: white;
+	border-radius: 35px;
 }
-.survey-preview-wrapper {
+/* .survey-preview-wrapper {
 	flex: 0.7 1;
 	height: calc(100vh - 157px);
 	overflow-y: scroll;
 	padding: 0 20px;
 	max-width: 70%;
 	margin: 0 auto;
+} */
+.survey-preview-wrapper {
+	flex: 0.7 1;
+	height: calc(100vh - 157px);
+	overflow-y: scroll;
+	padding: 17px 20px;
+	margin: 0 auto;
+	background: white;
+	border-radius: 40px;
+	margin: 0 20px;
 }
 .survey-preview-wrapper::-webkit-scrollbar {
 	display: none;
@@ -298,28 +349,7 @@ form input {
 	text-decoration: none;
 	overflow: hidden;
 }
-/* .btn:after {
-	content: "";
-	background: #0c0c0c;
-	display: block;
-	position: absolute;
-	top: 0;
-	left: -10px;
-	opacity: 0;
-	transition: all 0.2s ease-out;
-	border: 2px solid rgba(0, 0, 0, 0.151);
-	width: 100%;
-	height: 100%;
-}
 
-.btn:active:after {
-	padding: 0;
-	margin: 0;
-	opacity: 1;
-	transition: 0s;
-	bottom: 0;
-	width: 0;
-} */
 .icns {
 	position: absolute;
 	top: 50%;
@@ -340,17 +370,7 @@ form input {
 	background: #4a7aec;
 	color: white;
 }
-/*
-.btn-secondary {
-	color: #fff;
-	background-color: #6c757d;
-	border-color: #6c757d;
-}
-.btn-success {
-	color: #fff;
-	background-color: #28a745;
-	border-color: #28a745;
-}*/
+
 .btn-danger {
 	color: #fff;
 	background-color: #dc3545;
@@ -393,15 +413,7 @@ form input {
 	background-color: #1583e9;
 	color: white;
 }
-/* .editor-btns.edit {
-	background-color: rgb(202, 74, 74);
-	color: white;
-	display: block;
-	border: none;
-}
-.editor-btns:not(.active-menu-btn):hover {
-	box-shadow: 0 0 3px 0px rgb(151, 151, 151);
-} */
+
 .form-group {
 	display: flex;
 	flex-direction: column;
@@ -547,8 +559,7 @@ select {
 .item-meta {
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
-	width: 15%;
+	flex-direction: row;
 	color: rgb(92, 91, 99);
 }
 .item-meta p {
@@ -709,7 +720,7 @@ select {
 }
 
 .card {
-	border: 1px solid #f2f2f2;
+	border: 1px solid rgba(228, 228, 237);
 	width: 95%;
 	max-width: 320px;
 	display: block;
@@ -717,9 +728,9 @@ select {
 	flex-direction: column;
 	justify-content: center;
 	margin: 10px auto;
-	border-radius: 5px;
-	box-shadow: 0 0px 5px 0 #e6e2e2;
-	padding: 20px 0;
+	border-radius: 40px;
+	padding: 10px 20px;
+	box-sizing: border-box;
 }
 .card-sec {
 	margin: 10px 2px;

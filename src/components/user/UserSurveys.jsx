@@ -19,7 +19,15 @@ function UserSurveys({ simplified }) {
 
 	return (
 		<>
-			{!simplified ? <h2 className="main-heading">Your Surveys</h2> : ""}
+			{!simplified && (
+				<div>
+					<div className="home-heading-container">
+						<h1 className="welcome-heding">
+							Here You can share, edit, publish or delete your surveys
+						</h1>
+					</div>
+				</div>
+			)}
 			<div className="survey-card-container">
 				{surveys?.map((survey) => (
 					<>
