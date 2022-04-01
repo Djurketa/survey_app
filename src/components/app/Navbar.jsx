@@ -38,7 +38,7 @@ function Navbar() {
 
 					{session.user_id && (
 						<li>
-							<NavLink to="/createsurvey"> Create survey</NavLink>
+							<NavLink to="/createsurvey">Create survey</NavLink>
 						</li>
 					)}
 					{session.user_id && (

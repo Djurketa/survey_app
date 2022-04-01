@@ -9,7 +9,7 @@ const defaultState = {
 	questions: [],
 	answers: [],
 	category_id: "1",
-	activeMenu: "add-question",
+	activeMenu: "edit-survey",
 };
 export const LoginSurveysAsync = createAsyncThunk(
 	"surveys/LoginSurveysAsync",
@@ -84,6 +84,11 @@ export const surveySlice = createSlice({
 			sessionStorage.setItem("session", JSON.stringify(action.payload));
 			const session = action.payload || false;
 			state.session = session || "";
+		},
+		clearSurvey: (state, action) => {
+			state.title = defaultState.title;
+			state.description = defaultState.description;
+			state.questions = defaultState.questions;
 		},
 		setMessage: (state, action) => {
 			state.msg = action.payload;
@@ -177,6 +182,7 @@ export const {
 	setSession,
 	setMessage,
 	setActiveMenu,
+	clearSurvey,
 	addItem,
 	addQuestion,
 	editSurvey,

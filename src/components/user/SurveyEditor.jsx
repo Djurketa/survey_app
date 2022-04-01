@@ -4,12 +4,21 @@ import QuestionsList from "./QuestionsList";
 import EditQuestion from "./EditQuestion";
 import EditSurvey from "./EditSurvey";
 import AddQuestion from "./AddQuestion";
-import { insertSurveysAsync, setActiveMenu } from "../../slices/surveySlice";
+import {
+	insertSurveysAsync,
+	setActiveMenu,
+	clearSurvey,
+} from "../../slices/surveySlice";
 
-function SurveyEditor() {
+function SurveyEditor({ newSurvey }) {
 	const dispatch = useDispatch();
-
 	// const [activeMenu, setActiveMenu] = useState("add-question");
+
+	if (newSurvey) {
+		alert("upalo");
+		dispatch(clearSurvey());
+	}
+
 	const survey = useSelector((state) => state.survey);
 	const activeMenu = survey.activeMenu;
 

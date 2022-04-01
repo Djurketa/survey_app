@@ -43,7 +43,7 @@ function App() {
 							<Route
 								exact
 								path="/createsurvey"
-								element={<SurveyEditor />}></Route>
+								element={<SurveyEditor newSurvey={true} />}></Route>
 							<Route exact path="/login" element={<Login />}></Route>
 						</Routes>
 					</div>
