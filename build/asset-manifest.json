@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.079ea80c.css",
+    "main.js": "/static/js/main.2d27d02c.js",
+    "static/media/sport.png": "/static/media/sport.33b490c66b0963cee84b.png",
+    "static/media/art.png": "/static/media/art.34c88e5f5bcd89fd6723.png",
+    "static/media/social.png": "/static/media/social.c5ec0c52dab8b70566ad.png",
+    "static/media/politics.png": "/static/media/politics.135e7181e5f31856e79a.png",
+    "static/media/culture.png": "/static/media/culture.45436cb9f8f7216aca8c.png",
+    "static/media/logo3.png": "/static/media/logo3.78eff5af67df7bba36fd.png",
+    "static/media/music.png": "/static/media/music.0686fa1802e523649e6a.png",
+    "static/media/education.png": "/static/media/education.8c6043b564b69b8d87ba.png",
+    "static/media/helath.png": "/static/media/helath.bf5ce268bc5bb7e7282f.png",
+    "index.html": "/index.html",
+    "main.079ea80c.css.map": "/static/css/main.079ea80c.css.map",
+    "main.2d27d02c.js.map": "/static/js/main.2d27d02c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.079ea80c.css",
+    "static/js/main.2d27d02c.js"
+  ]
+}
